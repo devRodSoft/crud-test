@@ -15,6 +15,9 @@ class Employee extends Component
     public $detailEmployee;
     private $banxicoUrl = "https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF43718/datos?token=bcd495b79af85fb63dc275bf08817cbab8d215046b8e5040db8bc29262ab54e9";
     public $dollar;
+    public $porcent = 3;
+    public $newMx = 0;
+    public $newDollar = 0;
     /**
      * The attributes that are mass assignable.
      *
@@ -176,6 +179,9 @@ class Employee extends Component
         $this->telephone = $employeeSelected->telephone;
         $this->email = $employeeSelected->email;
         $this->active = $employeeSelected->active;
+
+        $this->newDollar = $this->salaryDollar;
+        $this->newMx = $this->salaryMx;
 
         $this->detailOpenModal();
     }
