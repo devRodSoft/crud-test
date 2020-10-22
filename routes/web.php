@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-   
 use App\Http\Livewire\Employee;
 
 /*
@@ -23,8 +22,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-//Route::get('employee', Employee::class);
-
-Route::get('employee', Employee::class, function () {
+Route::get('/employee', Employee::class, function () {
     //
 })->middleware(['auth:sanctum', 'verified']);

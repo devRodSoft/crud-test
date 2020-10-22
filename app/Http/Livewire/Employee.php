@@ -189,4 +189,16 @@ class Employee extends Component
         $employee->save();
         session()->flash('message', 'Employee Deleted Successfully.');
     }
+
+    public function activate($id) {
+        $employee = EmployeeModel::findOrFail($id);
+
+        $active = $employee->active ? 0 : 1;
+
+        $employee->active = $active;
+        $employee->save();
+
+        session()->flash('message', 
+        $active ? 'Employee Active Successfully.' : 'Employee disable Successfully.');
+    }
 }

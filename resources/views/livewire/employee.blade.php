@@ -54,14 +54,18 @@
                         <td class="border">{{ $employee->email }} </td>
                         <td class="border">{{ $employee->active }} </td>
                         <td class="border">
+                        <button wire:click="detail({{ $employee->id }})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View</button>
+                        <button wire:click="activate({{ $employee->id }})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Active/Disable</button>
                         <button wire:click="edit({{ $employee->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
                         <button wire:click="delete({{ $employee->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
-                        <button wire:click="detail({{ $employee->id }})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View</button>
+                        
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+
+        
     </div>
 </div>
