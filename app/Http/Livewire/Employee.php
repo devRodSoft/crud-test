@@ -3,6 +3,7 @@ namespace App\Http\Livewire;
   
 use Livewire\Component;
 use App\Models\EmployeeModel;
+use GuzzleHttp\Client;
   
 
 class Employee extends Component
@@ -13,7 +14,9 @@ class Employee extends Component
     public $detailOpen = 0;
 
     public $detailEmployee;
-  
+
+    private $banxicoUrl = "https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF43718/datos?token=bcd495b79af85fb63dc275bf08817cbab8d215046b8e5040db8bc29262ab54e9";
+    public $dollar;  
     /**
      * The attributes that are mass assignable.
      *
@@ -33,6 +36,10 @@ class Employee extends Component
      */
     public function create()
     {
+        $client = new Client();
+        $res = $client->request('GET', $this->banxicoUrl, []);
+        $data = json_decode($res->getBody());
+        $this->dollar = end($data->bmx->series[0]->datos)->dato;
         $this->resetInputFields();
         $this->openModal();
     }
@@ -78,6 +85,7 @@ class Employee extends Component
      * @var array
      */
     private function resetInputFields(){
+        $this->id = '';
         $this->code = '';
         $this->name = '';
         $this->salaryDollar = '';
@@ -99,15 +107,14 @@ class Employee extends Component
     public function store()
     {
         $this->validate([
-            'code'=> 'required',
+            'code'=> 'required|unique:employees',
             'name'=> 'required',
             'salaryDollar'=> 'required',
-            'salaryMx'=> 'required',
             'address'=> 'required',
             'state'=> 'required',
             'city'=> 'required',
-            'telephone'=> 'required',
-            'email'=> 'required',
+            'telephone'=> 'required|max:10',
+            'email'=> 'required|email',   
         ]);
         
         EmployeeModel::updateOrCreate(['id' => $this->id], [
@@ -115,7 +122,7 @@ class Employee extends Component
             'code'=> $this->code,
             'name'=> $this->name,
             'salaryDollar'=> $this->salaryDollar,
-            'salaryMx'=> $this->salaryMx,
+            'salaryMx'=> $this->salaryDollar * $this->dollar,
             'address'=> $this->address,
             'state'=> $this->state,
             'city'=> $this->city,
@@ -141,7 +148,7 @@ class Employee extends Component
         $this->code = $employees->code;
         $this->name = $employees->name;
         $this->salaryDollar = $employees->salaryDollar;
-        $this->salaryMx = $employees->salaryMx;
+        $this->salaryMx = $employees->salaryDollar * $this->dollar;
         $this->address = $employees->address;
         $this->state = $employees->state;
         $this->city = $employees->city;
@@ -171,7 +178,7 @@ class Employee extends Component
         $this->telephone = $employeeSelected->telephone;
         $this->email = $employeeSelected->email;
         $this->active = $employeeSelected->active;
-    
+
         $this->detailOpenModal();
     }
     
