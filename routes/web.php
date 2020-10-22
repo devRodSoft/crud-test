@@ -24,4 +24,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/employee', Employee::class, function () {
     //
-})->middleware(['auth:sanctum', 'verified']);
+})->name('employee')->middleware(['auth:sanctum', 'verified']);

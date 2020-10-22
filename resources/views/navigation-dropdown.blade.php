@@ -16,6 +16,12 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('employee') }}" :active="request()->routeIs('employee')">
+                        {{ __('Employee') }}
+                    </x-jet-nav-link>
+                </div>
+                
             </div>
 
             <!-- Settings Dropdown -->
