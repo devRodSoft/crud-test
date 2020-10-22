@@ -12,11 +12,9 @@ class Employee extends Component
     public $employees, $employeeSelected, $code, $name, $salaryDollar, $salaryMx, $address, $state, $city, $telephone, $email, $active;
     public $isOpen = 0;
     public $detailOpen = 0;
-
     public $detailEmployee;
-
     private $banxicoUrl = "https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF43718/datos?token=bcd495b79af85fb63dc275bf08817cbab8d215046b8e5040db8bc29262ab54e9";
-    public $dollar;  
+    public $dollar;
     /**
      * The attributes that are mass assignable.
      *
